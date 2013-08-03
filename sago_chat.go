@@ -26,11 +26,6 @@ func chat(r *sago.Request) {
 }
 
 func Init() {
-  chat_action := sago.AddAction("chat")
-  go func() {
-    for v := range chat_action.Channel {
-      chat(v)
-    }
-  }()
+  sago.AddAction("chat", chat)
 }
 
