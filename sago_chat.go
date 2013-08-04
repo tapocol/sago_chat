@@ -12,7 +12,8 @@ func chat(r *sago.Request) {
     return
   }
 
-  if r.Args["message"] == nil {
+  args := *r.Args
+  if args["message"] == nil {
     res := make(map[string]interface{})
     res["message"] = "Need to include the message"
     r.Session.Send(r.Id, "fail", res)
@@ -21,7 +22,7 @@ func chat(r *sago.Request) {
 
   res := make(map[string]interface{})
   res["name"] = r.Session.Data["name"]
-  res["message"] = r.Args["message"]
+  res["message"] = args["message"]
   sago.SendAll("chat", res)
 }
 
